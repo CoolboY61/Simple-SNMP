@@ -17,6 +17,7 @@ import java.util.Map;
  * @author : LiuYi
  * @version :
  * @date : 2022/4/30 17:05
+ *
  */
 public class EncoderImpl implements Encoder {
     private final Map<String, Byte> universal = new HashMap<>();
