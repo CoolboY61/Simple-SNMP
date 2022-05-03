@@ -11,6 +11,7 @@ import com.liu.pdu.VariableBindings;
  * @author : LiuYi
  * @version :
  * @date : 2022/4/30 18:11
+ *
  */
 public interface Encoder {
     /**
