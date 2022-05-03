@@ -13,6 +13,7 @@ public interface Decoder {
      *
      * @param snmpData 数据包
      * @return 返回解码得到的Snmp Message头部
+     *
      */
     SnmpMessage getSnmpMessage(byte[] snmpData);
 
