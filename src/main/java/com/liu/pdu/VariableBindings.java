@@ -1,5 +1,7 @@
 package com.liu.pdu;
 
+import com.liu.pdu.type.ValueType;
+
 import java.util.Objects;
 
 /**
@@ -14,7 +16,7 @@ public class VariableBindings {
     /**
      * SNMP对象标识符(Object Name)：OID
      */
-    private String objectId = "1.3.6.1.";
+    private String objectId = "1.3.6.1.2.1.";
     /**
      * 值类型(valueType)：值的类型
      */
@@ -31,19 +33,13 @@ public class VariableBindings {
     }
 
     public VariableBindings() {
+        this.valueType = ValueType.NULL;
+        this.value = null;
     }
 
     public VariableBindings(String objectId, int valueType, String value) {
         this.objectId = this.objectId + objectId;
-        if (valueType == 2) {
-            this.valueType = "INTEGER";
-        } else if (valueType == 4) {
-            this.valueType = "OCTET STRING";
-        } else if (valueType == 6) {
-            this.valueType = "OBJECT IDENTIFIER";
-        } else if (valueType == 5) {
-            this.valueType = "NULL";
-        }
+        setValueType(valueType);
         this.value = value;
     }
 
@@ -57,13 +53,11 @@ public class VariableBindings {
 
     public void setValueType(int valueType) {
         if (valueType == 2) {
-            this.valueType = "INTEGER";
+            this.valueType = ValueType.INTEGER;
         } else if (valueType == 4) {
-            this.valueType = "OCTET STRING";
-        } else if (valueType == 6) {
-            this.valueType = "OBJECT IDENTIFIER";
+            this.valueType = ValueType.OCTET_STRING;
         } else if (valueType == 5) {
-            this.valueType = "NULL";
+            this.valueType = ValueType.NULL;
         }
     }
 
