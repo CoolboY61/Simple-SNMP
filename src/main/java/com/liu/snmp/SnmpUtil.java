@@ -11,36 +11,10 @@ import com.liu.pdu.SnmpMessage;
  */
 public interface SnmpUtil {
     /**
-     * 发送SNMP Get请求
+     * 发送SNMP 请求
      *
-     * @param snmpMessage 需要发送的SNMP Message
-     * @param iP          目标IP地址
-     * @return 返回接收到的响应
+     * @param snmp 需发送的SNMP请求
+     * @param iP 目的IP
      */
-    byte[] sendGetRequest(SnmpMessage snmpMessage, String iP);
-
-    /**
-     * 发送SNMP Get-Next请求
-     *
-     * @param snmpMessage 需要发送的SNMP Message
-     * @param iP          目标IP地址
-     * @return 返回接收到的响应
-     */
-    byte[] sendGetNextRequest(SnmpMessage snmpMessage, String iP);
-
-    /**
-     * 发送SNMP Set请求
-     *
-     * @param snmpMessage 需要发送的SNMP Message
-     * @param iP          目标IP地址
-     * @return 返回接收到的响应
-     */
-    byte[] sendSetRequest(SnmpMessage snmpMessage, String iP);
-
-    /**
-     * 接收SNMP Response响应并解析
-     *
-     * @return 返回接收到的SNMP数据包
-     */
-    SnmpMessage receiveSnmpResponse();
+    void sendRequest(SnmpMessage snmp, String iP);
 }
