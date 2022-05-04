@@ -51,8 +51,8 @@ public class EncoderImpl implements Encoder {
             //  合并
             chief = Util.byteMerger(chief, tlByte);
 
-            //  Value类型为INTEGER
-        } else if (ValueType.INTEGER.equals(var.getValueType())) {
+            //  Value类型为INTEGER 或为COUNTER
+        } else if (ValueType.INTEGER.equals(var.getValueType()) || ValueType.COUNTER.equals(var.getValueType())) {
             //  ① 编码"V"
             byte[] vByte = Util.intToBytes(Integer.parseInt(var.getValue()));
             //  ② 编码"TL"
@@ -74,7 +74,24 @@ public class EncoderImpl implements Encoder {
             tlByte = Util.byteMerger(tlByte, vByte);
             //  合并
             chief = Util.byteMerger(chief, tlByte);
+
+            //  Value类型为IPADDRESS
+        } else if (ValueType.IPADDRESS.equals(var.getValueType())) {
+            //  ① 编码"V"
+            strTemp = var.getValue().split("\\.");
+            byte[] vByte = new byte[strTemp.length];
+            for (int i = 0; i < vByte.length; i++) {
+                //  将字符转换为字节
+                vByte[i] = (byte) Integer.parseInt(strTemp[i]);
+            }
+            //  ② 编码"TL"
+            byte[] tlByte = {ValueType.getTypeByte(var.getValueType()), (byte) vByte.length};
+            tlByte = Util.byteMerger(tlByte, vByte);
+            //  合并
+            chief = Util.byteMerger(chief, tlByte);
         }
+
+
         //  3、合并Var的整体TLV
         byte[] tlByte = {48, (byte) chief.length};
         chief = Util.byteMerger(tlByte, chief);
