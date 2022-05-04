@@ -34,7 +34,8 @@ public class Start {
         System.out.println("-------------------- SNMP配置选项 --------------------");
         System.out.println("Version：    0：version-1");
         System.out.println("PDU Type：   0：get-request  1：get-next-request  3：set-request");
-        System.out.println("Value Type： 2：INTEGER      4：OCTET STRING      5：NULL");
+        System.out.println("Value Type： 2：INTEGER      4：OCTET STRING      5：NULL\n" +
+                           "            64：IPADDRESS   65：COUNTER");
         System.out.println("请按照提示填写，选择SNMP Message相关配置：");
 
         System.out.print("请求的目的IP地址：      ");
