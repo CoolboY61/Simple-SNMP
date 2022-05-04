@@ -1,4 +1,4 @@
-# 基于Java实现SNMP的基本服务
+# 基于Java实现SNMPV1的基本服务
 ## 1. 实现PDU数据类型：
 + get-request
 + get-next-request
