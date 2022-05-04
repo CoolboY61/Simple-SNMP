@@ -1,7 +1,7 @@
 package com.liu.ber.impl;
 
 import com.liu.ber.Decoder;
-import com.liu.pdu.ResponsePdu;
+import com.liu.pdu.PDU;
 import com.liu.pdu.SnmpMessage;
 import com.liu.pdu.VariableBindings;
 import com.liu.util.Util;
@@ -13,16 +13,14 @@ import com.liu.util.Util;
  * @author : LiuYi
  * @version :
  * @date : 2022/4/30 17:05
- *
  */
 public class DecoderImpl implements Decoder {
 
     @Override
     public SnmpMessage getSnmpMessage(byte[] snmpData) {
         SnmpMessage snmpMessage = new SnmpMessage();
-        ResponsePdu responsePdu = new ResponsePdu();
+        PDU pdu = new PDU();
         VariableBindings var = new VariableBindings();
-
 
         //  一、第一步解码SNMP的Version、Community
         //  1、获取Version
@@ -45,15 +43,15 @@ public class DecoderImpl implements Decoder {
         //  二、第二步解码PDU的Request ID、Error status、Error index
         //  1、获取Request ID
         int requestId = pduData[4] & 0xff;
-        responsePdu.setRequestId(String.valueOf(requestId));
+        pdu.setRequestId(String.valueOf(requestId));
 
         //  2、获取Error status
         int errorStatus = pduData[7] & 0xff;
-        responsePdu.setErrorStatus(errorStatus);
+        pdu.setErrorStatus(errorStatus);
 
         //  3、获取Error index
         int errorIndex = pduData[10] & 0xff;
-        responsePdu.setErrorIndex(String.valueOf(errorIndex));
+        pdu.setErrorIndex(String.valueOf(errorIndex));
 
         //  截取Variable bindings部分数据，继续解码
         byte[] varData = new byte[pduData.length - 11];
@@ -85,33 +83,29 @@ public class DecoderImpl implements Decoder {
         System.arraycopy(varData, (2 + nameLength), valueData, 0, valueLength);
 
         int type = valueData[0] & 0xff;
-        var.setValueType(type);
         int dataLength = valueData[1] & 0xff;
         byte[] data = new byte[dataLength];
         System.arraycopy(valueData, 2, data, 0, dataLength);
 
         if (type == 2) {
+            var.setValueType(type);
             //  value为"INTEGER"型
             int value = Util.bytesToInt(data);
             var.setValue(String.valueOf(value));
         } else if (type == 4) {
+            var.setValueType(type);
             //  value为"OCTET STRING"型
             char[] temp = Util.byteToChar(data);
             sb = new StringBuilder();
             for (char c : temp) {
-                sb.append(temp);
+                sb.append(c);
             }
             var.setValue(sb.toString());
-        } else if (type == 5) {
-            //  value为"NULL"型
-            var.setValueType(5);
-            var.setValue(null);
         }
 
-
         //  合并
-        responsePdu.setVariableBindings(var);
-        snmpMessage.setSnmpPdu(responsePdu);
+        pdu.setVariableBindings(var);
+        snmpMessage.setSnmpPdu(pdu);
         return snmpMessage;
     }
 }
