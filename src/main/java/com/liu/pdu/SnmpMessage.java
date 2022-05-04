@@ -1,5 +1,7 @@
 package com.liu.pdu;
 
+import com.liu.pdu.type.VersionType;
+
 import java.util.Objects;
 
 /**
@@ -11,9 +13,6 @@ import java.util.Objects;
  *
  */
 public class SnmpMessage {
-
-    private final String[] versionType = {"version-1 (0)", "version-2 (1)", "version-3 (2)"};
-
     /**
      * 版本(Version)：SNMP 版本号。取值 0 表示 SNMPv1，取值 1 则表示 SNMPv2。
      */
@@ -39,7 +38,7 @@ public class SnmpMessage {
     }
 
     public SnmpMessage(int version, String community, Object snmpPdu) {
-        this.version = versionType[version];
+        this.version = VersionType.VERSION[version];
         this.community = community;
         this.snmpPdu = snmpPdu;
     }
@@ -48,19 +47,17 @@ public class SnmpMessage {
         return version;
     }
 
-    public String getVersionId() {
-        if ("version-1 (0)".equals(version)) {
-            return "0";
-        } else if ("version-2 (1)".equals(version)) {
-            return "1";
-        } else if ("version-3 (2)".equals(version)) {
-            return "3";
+    public int getVersionId() {
+        for (int i = 0; i < VersionType.VERSION.length; i++) {
+            if (VersionType.VERSION[i].equals(version)) {
+                return i;
+            }
         }
-        return null;
+        return 0;
     }
 
     public void setVersion(int version) {
-        this.version = versionType[version];
+        this.version = VersionType.VERSION[version];
     }
 
     public String getCommunity() {
@@ -88,7 +85,7 @@ public class SnmpMessage {
             return false;
         }
         SnmpMessage that = (SnmpMessage) o;
-        return version.equals(that.version) && community.equals(that.community) && snmpPdu.equals(that.snmpPdu);
+        return Objects.equals(version, that.version) && Objects.equals(community, that.community) && Objects.equals(snmpPdu, that.snmpPdu);
     }
 
     @Override
