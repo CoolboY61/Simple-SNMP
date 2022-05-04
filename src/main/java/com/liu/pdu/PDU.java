@@ -1,7 +1,7 @@
 package com.liu.pdu;
 
-import java.util.Arrays;
-import java.util.Objects;
+import com.liu.pdu.type.ErrorStatusType;
+import com.liu.pdu.type.PduType;
 
 /**
  * Get类型的PDU
@@ -9,15 +9,11 @@ import java.util.Objects;
  * @author : LiuYi
  * @version :1.0
  * @date : 2022/4/30 14:29
- *
  */
-public class GGSPdu {
-
-    private final String[] tempStatus = {"noError (0)", "tooBig (1)", "noSuchName (2)", "badValue (3)", "readOnly (4)", "genError (5)"};
-    private final String[] AllPduType = {"get-request", "get-next-request", "", "set-request"};
+public class PDU {
 
     /**
-     * PDU类型(PDU type)：区分PDU的类型。
+     * PDU类型(ResponsePdu type)：区分PDU的类型。
      */
     private String pduType;
     /**
@@ -29,11 +25,11 @@ public class GGSPdu {
      * 错误状态(Error status)：用于表示在处理请求时出现的状况，共有 6 种错误状态：
      * noError(0)、tooBig(1)、noSuchName(2)、badValue(3)、readOnly(4)、genError(5)
      */
-    private final String errorStatus = tempStatus[0];
+    private String errorStatus;
     /**
      * 错误索引(Error index)：当错误状态非 0 时指向出错的变量。
      */
-    private final String errorIndex = "0";
+    private String errorIndex;
     /**
      * 变量绑定表(Variable bindings)：变量绑定列表，由变量名和变量值对组成。
      * 在检索请求报文中，变量的值应为 0。
@@ -50,12 +46,25 @@ public class GGSPdu {
                 "\n     variable-bindings : " + variableBindings;
     }
 
-    public GGSPdu() {
+    public PDU() {
+        this.pduType = PduType.TYPE[2];
+        this.errorStatus = ErrorStatusType.STATUS[0];
+        this.errorIndex = "0";
     }
 
-    public GGSPdu(int pduType, String requestId, Object variableBindings) {
-        this.pduType = AllPduType[pduType];
+    public PDU(int pduType, String requestId, Object variableBindings) {
+        this.pduType = PduType.TYPE[pduType];
         this.requestId = requestId;
+        this.errorStatus = ErrorStatusType.STATUS[0];
+        this.errorIndex = "0";
+        this.variableBindings = variableBindings;
+    }
+
+    public PDU(int pduType, String requestId, int errorStatus, String errorIndex, Object variableBindings) {
+        this.pduType = PduType.TYPE[pduType];
+        this.requestId = requestId;
+        this.errorStatus = ErrorStatusType.STATUS[errorStatus];
+        this.errorIndex = errorIndex;
         this.variableBindings = variableBindings;
     }
 
@@ -64,7 +73,7 @@ public class GGSPdu {
     }
 
     public void setPduType(int pduType) {
-        this.pduType = AllPduType[pduType];
+        this.pduType = PduType.TYPE[pduType];
     }
 
     public String getRequestId() {
@@ -87,26 +96,15 @@ public class GGSPdu {
         return errorStatus;
     }
 
+    public void setErrorStatus(int errorStatus) {
+        this.errorStatus = ErrorStatusType.STATUS[errorStatus];
+    }
+
     public String getErrorIndex() {
         return errorIndex;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        GGSPdu GGSPdu = (GGSPdu) o;
-        return Arrays.equals(tempStatus, GGSPdu.tempStatus) && Objects.equals(pduType, GGSPdu.pduType) && Objects.equals(requestId, GGSPdu.requestId) && Objects.equals(errorStatus, GGSPdu.errorStatus) && Objects.equals(errorIndex, GGSPdu.errorIndex) && Objects.equals(variableBindings, GGSPdu.variableBindings);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(pduType, requestId, errorStatus, errorIndex, variableBindings);
-        result = 31 * result + Arrays.hashCode(tempStatus);
-        return result;
+    public void setErrorIndex(String errorIndex) {
+        this.errorIndex = errorIndex;
     }
 }
