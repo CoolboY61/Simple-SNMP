@@ -1,6 +1,6 @@
 package com.liu;
 
-import com.liu.pdu.GGSPdu;
+import com.liu.pdu.PDU;
 import com.liu.pdu.SnmpMessage;
 import com.liu.pdu.VariableBindings;
 import com.liu.snmp.SnmpUtil;
@@ -28,7 +28,7 @@ public class Start {
 
     public static boolean view() {
         VariableBindings var = new VariableBindings();
-        GGSPdu pdu = new GGSPdu();
+        PDU pdu = new PDU();
         SnmpMessage snmp = new SnmpMessage();
 
         System.out.println("-------------------- SNMP配置选项 --------------------");
@@ -45,42 +45,28 @@ public class Start {
         System.out.print("团体名(Community)：    ");
         snmp.setCommunity(sc.nextLine());
 
-        System.out.print("请求类型(PDU type)：   ");
+        System.out.print("请求类型(ResponsePdu type)：   ");
         int type = sc.nextInt();
         pdu.setPduType(type);
         String num = Util.getNum();
         System.out.print("请求标识(Request ID)： " + num + "\n");
         pdu.setRequestId(num);
-
         sc.nextLine();
-
-        System.out.print("OID：         1.3.6.1.");
+        System.out.print("OID：         1.3.6.1.2.1.");
         var.setObjectId(sc.nextLine());
         if (type == 3) {
             System.out.print("Value Type：          ");
             var.setValueType(sc.nextInt());
+            sc.nextLine();
             System.out.print("Value：               ");
             var.setValue(sc.nextLine());
-            pdu.setVariableBindings(var);
-            snmp.setSnmpPdu(pdu);
-            snmpUtil.sendSetRequest(snmp, iP);
-        } else if (type == 0) {
+        } else {
             System.out.println("Value Type：          NULL");
             System.out.println("Value：               NULL");
-            var.setValueType(5);
-            var.setValue(null);
-            pdu.setVariableBindings(var);
-            snmp.setSnmpPdu(pdu);
-            snmpUtil.sendGetRequest(snmp, iP);
-        } else if (type == 1) {
-            System.out.println("Value Type：          NULL");
-            System.out.println("Value：               NULL");
-            var.setValueType(5);
-            var.setValue(null);
-            pdu.setVariableBindings(var);
-            snmp.setSnmpPdu(pdu);
-            snmpUtil.sendGetNextRequest(snmp, iP);
         }
+        pdu.setVariableBindings(var);
+        snmp.setSnmpPdu(pdu);
+        snmpUtil.sendRequest(snmp, iP);
 
         System.out.println("提示： 1-继续   0-退出");
         if (sc.nextInt() == 0) {
