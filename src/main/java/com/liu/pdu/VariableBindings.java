@@ -58,6 +58,10 @@ public class VariableBindings {
             this.valueType = ValueType.OCTET_STRING;
         } else if (valueType == 5) {
             this.valueType = ValueType.NULL;
+        } else if (valueType == 64) {
+            this.valueType = ValueType.IPADDRESS;
+        } else if (valueType == 65) {
+            this.valueType = ValueType.COUNTER;
         }
     }
 
