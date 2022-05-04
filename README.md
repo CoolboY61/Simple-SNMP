@@ -8,3 +8,7 @@
 + INTEGER
 + OCTET STRING
 + NULL
++ COUNTER
++ IPADDRESS
+
+只实现了简单的SNMP服务，在VariableBindings中默认只含有一对（Name-Value）
