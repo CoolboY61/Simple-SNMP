@@ -4,7 +4,11 @@ import com.liu.pdu.PDU;
 import com.liu.pdu.SnmpMessage;
 import com.liu.pdu.VariableBindings;
 import com.liu.snmp.impl.SnmpUtilImpl;
+import com.liu.util.Util;
 import org.junit.Test;
+
+import java.util.Arrays;
+
 
 /**
  * @author : LiuYi
