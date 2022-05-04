@@ -87,9 +87,9 @@ public class DecoderImpl implements Decoder {
         byte[] data = new byte[dataLength];
         System.arraycopy(valueData, 2, data, 0, dataLength);
 
-        if (type == 2) {
+        if (type == 2 || type == 65) {
             var.setValueType(type);
-            //  value为"INTEGER"型
+            //  value为"INTEGER" 或"COUNTER"型
             int value = Util.bytesToInt(data);
             var.setValue(String.valueOf(value));
         } else if (type == 4) {
@@ -99,6 +99,18 @@ public class DecoderImpl implements Decoder {
             sb = new StringBuilder();
             for (char c : temp) {
                 sb.append(c);
+            }
+            var.setValue(sb.toString());
+        } else if (type == 64) {
+            var.setValueType(type);
+            //  value为"IPADDRESS"型
+            int[] temp = Util.byteToDec(data);
+            sb = new StringBuilder();
+            for (int i = 0; i < temp.length; i++) {
+                sb.append(temp[i]);
+                if (i <= 3) {
+                    sb.append('.');
+                }
             }
             var.setValue(sb.toString());
         }
