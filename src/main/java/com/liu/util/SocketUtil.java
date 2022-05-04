@@ -16,6 +16,9 @@ import java.util.Arrays;
  */
 public class SocketUtil {
 
+    /**
+     * UDP Socket
+     */
     public static DatagramSocket socket;
 
     static {
@@ -24,47 +27,6 @@ public class SocketUtil {
         } catch (SocketException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * 利用UDP发送SNMP请求
-     *
-     * @param snmpData SNMP数据包的编码格式
-     */
-    public static void sendSnmp(byte[] snmpData, String iP) {
-        try {
-            int port = 161;
-            InetAddress address = InetAddress.getByName(iP);
-            DatagramPacket packet = new DatagramPacket(snmpData, snmpData.length, address, port);
-            socket.setReuseAddress(true);
-            socket.send(packet);
-            socket.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 利用UDP接收SNMP响应
-     *
-     * @return 返回接收的字节数组（数据包）
-     */
-    public static byte[] receiveSnmp() {
-        byte[] snmpData = new byte[0];
-        byte[] snmpDataTemp;
-        try {
-            byte[] bytes = new byte[1472];
-            DatagramPacket dp = new DatagramPacket(bytes, bytes.length);
-            socket.receive(dp);
-            socket.close();
-            snmpData = new byte[dp.getLength()];
-            snmpDataTemp = dp.getData();
-            System.arraycopy(snmpDataTemp, 0, snmpData, 0, dp.getLength());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println(Arrays.toString(snmpData));
-        return snmpData;
     }
 
     /**
