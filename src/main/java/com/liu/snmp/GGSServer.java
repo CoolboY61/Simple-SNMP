@@ -13,7 +13,7 @@ import java.net.*;
  * SNMP服务
  *
  * @author : LiuYi
- * @version : 1.4
+ * @version : 2.0
  * @date : 2022/5/2 19:04
  */
 public class GGSServer {
