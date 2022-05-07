@@ -7,7 +7,7 @@ import java.util.Map;
  * Value数据类型
  *
  * @author : LiuYi
- * @version : 1.4
+ * @version : 2.0
  * @date : 2022/5/4 16:14
  */
 public class ValueType {
