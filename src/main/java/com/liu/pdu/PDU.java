@@ -6,7 +6,7 @@ import com.liu.pdu.type.Type;
  * Get类型的PDU
  *
  * @author : LiuYi
- * @version : 1.4
+ * @version : 2.0
  * @date : 2022/4/30 14:29
  */
 public class PDU {
