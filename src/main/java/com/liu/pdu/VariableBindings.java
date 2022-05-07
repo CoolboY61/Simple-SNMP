@@ -8,7 +8,7 @@ import java.util.Objects;
  * 变量绑定列表
  *
  * @author : LiuYi
- * @version :
+ * @version : 1.4
  * @date : 2022/4/30 15:21
  *
  */
@@ -16,7 +16,7 @@ public class VariableBindings {
     /**
      * SNMP对象标识符(Object Name)：OID
      */
-    private String objectId = "1.3.6.1.2.1.";
+    private String objectId = "1.3.6.1.";
     /**
      * 值类型(valueType)：值的类型
      */
@@ -39,7 +39,7 @@ public class VariableBindings {
 
     public VariableBindings(String objectId, int valueType, String value) {
         this.objectId = this.objectId + objectId;
-        setValueType(valueType);
+        this.valueType = ValueType.getTypeByNum(valueType);
         this.value = value;
     }
 
@@ -52,17 +52,7 @@ public class VariableBindings {
     }
 
     public void setValueType(int valueType) {
-        if (valueType == 2) {
-            this.valueType = ValueType.INTEGER;
-        } else if (valueType == 4) {
-            this.valueType = ValueType.OCTET_STRING;
-        } else if (valueType == 5) {
-            this.valueType = ValueType.NULL;
-        } else if (valueType == 64) {
-            this.valueType = ValueType.IPADDRESS;
-        } else if (valueType == 65) {
-            this.valueType = ValueType.COUNTER;
-        }
+        this.valueType = ValueType.getTypeByNum(valueType);
     }
 
     public void setObjectId(String objectId) {
