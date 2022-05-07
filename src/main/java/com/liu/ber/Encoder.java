@@ -8,7 +8,7 @@ import com.liu.pdu.VariableBindings;
  * BER编码
  *
  * @author : LiuYi
- * @version : 1.4
+ * @version : 2.0
  * @date : 2022/4/30 18:11
  */
 public interface Encoder {
