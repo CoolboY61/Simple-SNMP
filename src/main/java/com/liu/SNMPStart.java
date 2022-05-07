@@ -3,20 +3,20 @@ package com.liu;
 import com.liu.pdu.PDU;
 import com.liu.pdu.SnmpMessage;
 import com.liu.pdu.VariableBindings;
-import com.liu.snmp.SnmpUtil;
-import com.liu.snmp.impl.SnmpUtilImpl;
+import com.liu.snmp.GGSServer;
 import com.liu.util.Util;
 
 import java.util.Scanner;
 
 /**
+ * SNMP服务启动器
+ *
  * @author : LiuYi
  * @version : 1.4
  * @date : 2022/5/3 10:15
  */
-public class Start {
+public class SNMPStart {
     public static Scanner sc = new Scanner(System.in);
-    public static SnmpUtil snmpUtil = new SnmpUtilImpl();
 
     public static void main(String[] args) {
         boolean state = true;
@@ -26,11 +26,12 @@ public class Start {
         System.out.print("团体名(Community)：    ");
         String community = sc.nextLine();
         while (state) {
-            state = Start.view(iP, community);
+            state = SNMPStart.view(iP, community);
         }
     }
 
     public static boolean view(String iP, String community) {
+
         VariableBindings var = new VariableBindings();
         PDU pdu = new PDU();
         SnmpMessage snmp = new SnmpMessage();
@@ -38,9 +39,9 @@ public class Start {
 
         System.out.println("-------------------- SNMP配置选项 --------------------");
         System.out.println("Version：    0：version-1");
-        System.out.println("PDU Type：   0：get-request           1：get-next-request  3：set-request");
+        System.out.println("PDU Type：   0：get-request         1：get-next-request  3：set-request");
         System.out.println("Value Type： 1：BOOLEAN             2：INTEGER       4：OCTET STRING    5：NULL\n" +
-                           "             6：OBJECT_IDENTIFIER  64：IPADDRESS    65：COUNTER        67：TIMETICKS");
+                "             6：OBJECT_IDENTIFIER  64：IPADDRESS    65：COUNTER        67：TIMETICKS");
         System.out.println("请按照提示填写，选择SNMP Message相关配置：");
 
         System.out.println("版本号(Version)：      0");
@@ -77,7 +78,8 @@ public class Start {
         }
         pdu.setVariableBindings(var);
         snmp.setSnmpPdu(pdu);
-        snmpUtil.startSnmpService(snmp, iP);
+        GGSServer snmpServer = new GGSServer(snmp, iP);
+        snmpServer.run();
 
         System.out.println("提示： 1-继续   0-退出");
         if (sc.nextInt() == 0) {
