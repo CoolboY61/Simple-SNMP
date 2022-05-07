@@ -1,6 +1,6 @@
 package com.liu.pdu;
 
-import com.liu.pdu.type.VersionType;
+import com.liu.pdu.type.Type;
 
 import java.util.Objects;
 
@@ -8,7 +8,7 @@ import java.util.Objects;
  * SNMP报文
  *
  * @author : LiuYi
- * @version :1.0
+ * @version : 1.4
  * @date : 2022/4/30 13:27
  *
  */
@@ -38,7 +38,7 @@ public class SnmpMessage {
     }
 
     public SnmpMessage(int version, String community, Object snmpPdu) {
-        this.version = VersionType.VERSION[version];
+        this.version = Type.VERSION[version];
         this.community = community;
         this.snmpPdu = snmpPdu;
     }
@@ -48,8 +48,8 @@ public class SnmpMessage {
     }
 
     public int getVersionId() {
-        for (int i = 0; i < VersionType.VERSION.length; i++) {
-            if (VersionType.VERSION[i].equals(version)) {
+        for (int i = 0; i < Type.VERSION.length; i++) {
+            if (Type.VERSION[i].equals(version)) {
                 return i;
             }
         }
@@ -57,7 +57,7 @@ public class SnmpMessage {
     }
 
     public void setVersion(int version) {
-        this.version = VersionType.VERSION[version];
+        this.version = Type.VERSION[version];
     }
 
     public String getCommunity() {
