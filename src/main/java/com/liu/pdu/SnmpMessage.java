@@ -8,7 +8,7 @@ import java.util.Objects;
  * SNMP报文
  *
  * @author : LiuYi
- * @version : 1.4
+ * @version : 2.0
  * @date : 2022/4/30 13:27
  *
  */
