@@ -8,7 +8,7 @@ import java.util.Objects;
  * 变量绑定列表
  *
  * @author : LiuYi
- * @version : 1.4
+ * @version : 2.0
  * @date : 2022/4/30 15:21
  *
  */
