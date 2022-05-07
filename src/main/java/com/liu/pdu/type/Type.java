@@ -4,7 +4,7 @@ package com.liu.pdu.type;
  * SNMP数据包中，一些固定值的字段，将其取值定义在Type中
  *
  * @author : LiuYi
- * @version : 1.4
+ * @version : 2.0
  * @date : 2022/5/6 22:57
  */
 public class Type {
