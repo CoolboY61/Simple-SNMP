@@ -272,5 +272,4 @@ public class DecoderImpl implements Decoder {
         return String.valueOf(Util.bytesToInt(data));
     }
 
-
 }
