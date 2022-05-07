@@ -1,19 +1,18 @@
 package com.liu.pdu;
 
-import com.liu.pdu.type.ErrorStatusType;
-import com.liu.pdu.type.PduType;
+import com.liu.pdu.type.Type;
 
 /**
  * Get类型的PDU
  *
  * @author : LiuYi
- * @version :1.0
+ * @version : 1.4
  * @date : 2022/4/30 14:29
  */
 public class PDU {
 
     /**
-     * PDU类型(ResponsePdu type)：区分PDU的类型。
+     * PDU类型(PDU type)：区分PDU的类型。
      */
     private String pduType;
     /**
@@ -34,7 +33,7 @@ public class PDU {
      * 变量绑定表(Variable bindings)：变量绑定列表，由变量名和变量值对组成。
      * 在检索请求报文中，变量的值应为 0。
      */
-    private Object variableBindings;
+    private VariableBindings variableBindings;
 
     @Override
     public String toString() {
@@ -47,23 +46,23 @@ public class PDU {
     }
 
     public PDU() {
-        this.pduType = PduType.TYPE[2];
-        this.errorStatus = ErrorStatusType.STATUS[0];
+        this.pduType = Type.PDUTYPE[2];
+        this.errorStatus = Type.STATUS[0];
         this.errorIndex = "0";
     }
 
-    public PDU(int pduType, String requestId, Object variableBindings) {
-        this.pduType = PduType.TYPE[pduType];
+    public PDU(int pduType, String requestId, VariableBindings variableBindings) {
+        this.pduType = Type.PDUTYPE[pduType];
         this.requestId = requestId;
-        this.errorStatus = ErrorStatusType.STATUS[0];
+        this.errorStatus = Type.STATUS[0];
         this.errorIndex = "0";
         this.variableBindings = variableBindings;
     }
 
-    public PDU(int pduType, String requestId, int errorStatus, String errorIndex, Object variableBindings) {
-        this.pduType = PduType.TYPE[pduType];
+    public PDU(int pduType, String requestId, int errorStatus, String errorIndex, VariableBindings variableBindings) {
+        this.pduType = Type.PDUTYPE[pduType];
         this.requestId = requestId;
-        this.errorStatus = ErrorStatusType.STATUS[errorStatus];
+        this.errorStatus = Type.STATUS[errorStatus];
         this.errorIndex = errorIndex;
         this.variableBindings = variableBindings;
     }
@@ -73,7 +72,7 @@ public class PDU {
     }
 
     public void setPduType(int pduType) {
-        this.pduType = PduType.TYPE[pduType];
+        this.pduType = Type.PDUTYPE[pduType];
     }
 
     public String getRequestId() {
@@ -88,7 +87,7 @@ public class PDU {
         return variableBindings;
     }
 
-    public void setVariableBindings(Object variableBindings) {
+    public void setVariableBindings(VariableBindings variableBindings) {
         this.variableBindings = variableBindings;
     }
 
@@ -97,7 +96,7 @@ public class PDU {
     }
 
     public void setErrorStatus(int errorStatus) {
-        this.errorStatus = ErrorStatusType.STATUS[errorStatus];
+        this.errorStatus = Type.STATUS[errorStatus];
     }
 
     public String getErrorIndex() {
