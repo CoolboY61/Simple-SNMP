@@ -14,7 +14,7 @@ import java.net.SocketException;
  * Trap服务
  *
  * @author : LiuYi
- * @version : 1.4
+ * @version : 2.0
  * @date : 2022/5/7 22:36
  */
 public class TrapServer implements Runnable{
