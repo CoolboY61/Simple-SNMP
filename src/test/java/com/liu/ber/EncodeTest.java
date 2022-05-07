@@ -23,20 +23,20 @@ public class EncodeTest {
         VariableBindings var1 = new VariableBindings("11.31.0", 2, "1");
         PDU pdu = new PDU(0,"10",var1);
         SnmpMessage snmp = new SnmpMessage(0,"xust",pdu);
-        byte[] temp = encoder.getSnmpMessageCoding(snmp);
+        byte[] temp = encoder.getSnmpCoding(snmp);
         Util.showPacket(temp);
 
 
         var1 = new VariableBindings("11.1.0", 5, null);
         pdu = new PDU(1,"11",var1);
         snmp = new SnmpMessage(0,"xust",pdu);
-        temp = encoder.getSnmpMessageCoding(snmp);
+        temp = encoder.getSnmpCoding(snmp);
         Util.showPacket(temp);
 
         var1 = new VariableBindings("11.1.0", 4, "aa");
         pdu = new PDU(3,"11",var1);
         snmp = new SnmpMessage(0,"xust",pdu);
-        temp = encoder.getSnmpMessageCoding(snmp);
+        temp = encoder.getSnmpCoding(snmp);
         Util.showPacket(temp);
     }
 }
