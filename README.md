@@ -4,11 +4,16 @@
 + get-next-request
 + set-request
 + get-response
++ trap
 ## 2. Value支持数据类型：
++ BOOLEAN
 + INTEGER
 + OCTET STRING
 + NULL
-+ COUNTER
++ OBJECT_IDENTIFIER
++ SEQUENCE
 + IPADDRESS
++ COUNTER
++ TIMETICKS
 
 只实现了简单的SNMP Manager服务，在VariableBindings中默认只含有一对（Name-Value）
