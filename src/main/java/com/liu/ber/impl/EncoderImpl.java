@@ -13,7 +13,7 @@ import com.liu.util.Util;
  * BER编码
  *
  * @author : LiuYi
- * @version : 1.4
+ * @version : 2.0
  * @date : 2022/4/30 17:05
  */
 public class EncoderImpl implements Encoder {
