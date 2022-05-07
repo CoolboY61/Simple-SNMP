@@ -9,7 +9,7 @@ import com.liu.pdu.VariableBindings;
  * BER解码
  *
  * @author : LiuYi
- * @version : 1.4
+ * @version : 2.0
  * @date : 2022/4/30 18:12
  */
 public interface Decoder {
