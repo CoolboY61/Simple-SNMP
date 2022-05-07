@@ -12,7 +12,7 @@ import java.util.Random;
  * 工具类
  *
  * @author : LiuYi
- * @version : 1.4
+ * @version : 2.0
  * @date : 2022/4/30 18:49
  */
 public class Util {
