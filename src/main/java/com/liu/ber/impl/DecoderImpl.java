@@ -27,18 +27,21 @@ public class DecoderImpl implements Decoder {
 
         //  一、第一步解码SNMP的Version、Community
         byte[] pduData = getSnmp(snmpData, snmpMessage);
-        byte[] varData = null;
+
+        byte[] varData;
         if ((pduData[0] & 0xff) == 162) {
             //  二、第二步解码PDU的Request ID、Error status、Error index
             varData = getPDU(pduData, pdu);
             //  三、第三步解码Variable bindings的Name、Value
             getVar(varData, var);
+            //  合并
+            pdu.setVariableBindings(var);
+            snmpMessage.setSnmpPdu(pdu);
         } else if ((pduData[0] & 0xff) == 164) {
             getTrap(pduData, trap);
+            //  合并
+            snmpMessage.setSnmpPdu(trap);
         }
-        //  合并
-        pdu.setVariableBindings(var);
-        snmpMessage.setSnmpPdu(pdu);
         return snmpMessage;
     }
 
