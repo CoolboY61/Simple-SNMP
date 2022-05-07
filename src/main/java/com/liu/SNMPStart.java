@@ -12,7 +12,7 @@ import java.util.Scanner;
  * SNMP服务启动器
  *
  * @author : LiuYi
- * @version : 1.4
+ * @version : 2.0
  * @date : 2022/5/3 10:15
  */
 public class SNMPStart {
