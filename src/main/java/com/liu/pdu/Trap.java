@@ -8,7 +8,7 @@ import java.util.Objects;
  * Trap类型的PDU
  *
  * @author : LiuYi
- * @version : 1.4
+ * @version : 2.0
  * @date : 2022/5/7 14:36
  */
 public class Trap {
